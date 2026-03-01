@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Dungeon Loot Splitter - Split your party's loot evenly among members">
+    <meta name="author" content="Your Name">
+    <title>Dungeon Loot Splitter</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <h1>Dungeon Loot Splitter</h1>
+    </header>
+
+    <main>
+        <!-- Second Row - Left: Party Setup -->
+        <section class="panel">
+            <h2>Party Setup</h2>
+            <div class="form-group">
+                <label for="partySize">Number of Party Members:</label>
+                <input type="number" id="partySize" min="1" value="4">
+            </div>
+        </section>
+
+        <!-- Second Row - Right: Add Loot -->
+        <section class="panel">
+            <h2>Add Loot</h2>
+            <div class="form-group">
+                <label for="lootName">Loot Name:</label>
+                <input type="text" id="lootName" placeholder="e.g., Golden Chalice">
+            </div>
+            <div class="form-group">
+                <label for="lootValue">Loot Value ($):</label>
+                <input type="number" id="lootValue" step="0.01" min="0" placeholder="0.00">
+            </div>
+            <button id="addLootBtn" class="btn">Add Loot</button>
+        </section>
+
+        <!-- Third Row - Left: Loot List -->
+        <section class="panel">
+            <h2>Loot List</h2>
+            <div id="lootListContainer" class="loot-list">
+                <!-- Loot items will be rendered here -->
+                <p class="empty-message">No loot added yet.</p>
+            </div>
+            <div class="total-display">
+                <strong>Running Total:</strong> $<span id="runningTotal">0.00</span>
+            </div>
+        </section>
+
+        <!-- Third Row - Right: Split Loot -->
+        <section class="panel">
+            <h2>Split Loot</h2>
+            <button id="splitLootBtn" class="btn">Split Loot</button>
+            <div id="splitResults" class="split-results">
+                <p><strong>Total Loot:</strong> $<span id="finalTotal">0.00</span></p>
+                <p><strong>Loot Per Party Member:</strong> $<span id="perMember">0.00</span></p>
+            </div>
+            <div id="errorMessages" class="error-messages"></div>
+        </section>
+
+        <!-- Bottom Row: Logic Explanation -->
+        <section class="panel reflection">
+            <h2>Logic Explanation</h2>
+            <p>My app uses a <strong>lootArray</strong> to store each item as an object with name and value properties. When items are added, I use a <strong>for loop</strong> to calculate the running total and another <strong>for loop</strong> to render each item to the DOM. Conditional <strong>if statements</strong> validate that party size ≥ 1, loot names aren't empty, and values are valid positive numbers. When splitting, I divide the total by party size and format with toFixed(2).</p>
+        </section>
+    </main>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
