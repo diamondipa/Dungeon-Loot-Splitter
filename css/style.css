@@ -1,3 +1,8 @@
+/* 
+ * Dungeon Loot Splitter - Phase 2
+ * Mobile-first responsive design with ADA compliance
+ */
+
 /* Base Styles - Mobile First */
 * {
     box-sizing: border-box;
@@ -9,19 +14,21 @@ body {
     font-family: 'Arial', sans-serif;
     line-height: 1.6;
     color: #333;
-    background-color: #f4f4f4;
+    background-color: #f8f9fa;
     padding: 1rem;
     min-height: 100vh;
 }
 
+/* Header */
 header {
-    background-color: #2c3e50;
+    background-color: #1a3e4c; /* Dark teal - meets contrast requirements */
     color: white;
     padding: 1.5rem;
     border-radius: 8px;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
     text-align: center;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    border: 1px solid #0f2a33;
 }
 
 header h1 {
@@ -29,166 +36,271 @@ header h1 {
     text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
 }
 
+/* Main Layout */
 main {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 1.5rem;
     max-width: 1200px;
     margin: 0 auto;
 }
 
+/* Panel Styling */
 .panel {
     background: white;
     padding: 1.5rem;
     border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    border: 1px solid #ddd;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    border: 1px solid #dee2e6;
 }
 
 .panel h2 {
-    color: #2c3e50;
-    margin-bottom: 1rem;
-    font-size: 1.3rem;
-    border-bottom: 2px solid #e74c3c;
+    color: #1a3e4c;
+    margin-bottom: 1.25rem;
+    font-size: 1.4rem;
+    border-bottom: 3px solid #b33c1f; /* Burnt orange accent */
     padding-bottom: 0.5rem;
+    font-weight: 600;
 }
 
 /* Form Elements */
 .form-group {
-    margin-bottom: 1rem;
+    margin-bottom: 1.25rem;
 }
 
 label {
     display: block;
-    margin-bottom: 0.3rem;
-    font-weight: bold;
-    color: #555;
+    margin-bottom: 0.4rem;
+    font-weight: 600;
+    color: #2c3e50;
+    font-size: 0.95rem;
+}
+
+/* Structured input alignment for Add Loot panel */
+.add-loot-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.add-loot-form .form-group {
+    margin-bottom: 0.75rem;
+}
+
+.add-loot-form .form-group:last-of-type {
+    margin-bottom: 1.25rem;
 }
 
 input {
     width: 100%;
     padding: 0.8rem;
-    border: 2px solid #ddd;
-    border-radius: 4px;
+    border: 2px solid #ced4da;
+    border-radius: 6px;
     font-size: 1rem;
-    transition: border-color 0.3s;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    background-color: #fff;
 }
 
 input:focus {
     outline: none;
-    border-color: #e74c3c;
+    border-color: #b33c1f;
+    box-shadow: 0 0 0 3px rgba(179, 60, 31, 0.2);
 }
 
 input:invalid {
-    border-color: #e74c3c;
+    border-color: #b33c1f;
 }
 
+/* Button Styling */
 .btn {
-    background-color: #e74c3c;
+    background-color: #b33c1f; /* Burnt orange - meets contrast with white text */
     color: white;
     padding: 0.8rem 1.5rem;
     border: none;
-    border-radius: 4px;
+    border-radius: 6px;
     font-size: 1rem;
     cursor: pointer;
     width: 100%;
-    transition: background-color 0.3s;
-    font-weight: bold;
+    transition: background-color 0.2s;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    border: 1px solid #8a2e17;
 }
 
 .btn:hover {
-    background-color: #c0392b;
+    background-color: #8a2e17;
 }
 
-/* Loot List */
-.loot-list {
-    max-height: 200px;
-    overflow-y: auto;
-    border: 1px solid #ddd;
-    padding: 0.5rem;
-    border-radius: 4px;
+.btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(179, 60, 31, 0.4);
+}
+
+.btn:disabled {
+    background-color: #adb5bd;
+    border-color: #8a939c;
+    cursor: not-allowed;
+    opacity: 0.65;
+}
+
+/* Loot Table Styles - Grid layout as specified */
+.loot-table {
+    display: grid;
+    grid-template-columns: 3fr 1fr 1fr 1fr;
+    gap: 0.5rem;
+    align-items: center;
     margin-bottom: 1rem;
 }
 
-.loot-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.5rem;
-    border-bottom: 1px solid #eee;
+.loot-header {
+    font-weight: 700;
+    border-bottom: 2px solid #1a3e4c;
+    padding-bottom: 0.5rem;
+    color: #1a3e4c;
+    font-size: 0.9rem;
+    text-transform: uppercase;
 }
 
-.loot-item:last-child {
-    border-bottom: none;
+#lootRows {
+    display: contents;
 }
 
-.loot-item .loot-name {
-    font-weight: bold;
-    color: #2c3e50;
+.loot-row {
+    display: contents;
 }
 
-.loot-item .loot-value {
-    color: #27ae60;
-    font-weight: bold;
+.loot-cell {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #e9ecef;
 }
 
-.empty-message {
-    color: #999;
+.loot-cell:last-child {
     text-align: center;
-    padding: 1rem;
 }
 
-/* Total Display */
-.total-display {
-    font-size: 1.2rem;
-    padding: 0.5rem;
-    background-color: #ecf0f1;
+.loot-cell button {
+    width: 100%;
+    padding: 0.4rem 0;
+    background-color: #b33c1f;
+    color: white;
+    border: none;
     border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: background-color 0.2s;
+    border: 1px solid #8a2e17;
+}
+
+.loot-cell button:hover {
+    background-color: #8a2e17;
+}
+
+.loot-cell button:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(179, 60, 31, 0.4);
+}
+
+/* Total Row */
+.total-row {
+    font-size: 1.2rem;
+    font-weight: 700;
+    padding: 0.75rem;
+    background-color: #1a3e4c;
+    color: white;
+    border-radius: 6px;
     text-align: right;
+    margin-top: 0.5rem;
+    border: 1px solid #0f2a33;
+}
+
+.total-row span {
+    color: #ffb347; /* Light orange for contrast */
+}
+
+/* Empty Message */
+.empty-message {
+    color: #6c757d;
+    text-align: center;
+    padding: 2rem;
+    font-style: italic;
+    background-color: #f8f9fa;
+    border-radius: 6px;
+    margin-bottom: 1rem;
+    border: 1px dashed #adb5bd;
+}
+
+/* Hidden Class for State-Driven Visibility */
+.hidden {
+    display: none !important;
 }
 
 /* Split Results */
 .split-results {
-    margin: 1rem 0;
+    margin: 1.25rem 0;
     padding: 1rem;
-    background-color: #27ae60;
+    background-color: #1a3e4c;
     color: white;
-    border-radius: 4px;
+    border-radius: 6px;
+    border: 1px solid #0f2a33;
 }
 
 .split-results p {
-    margin: 0.5rem 0;
+    margin: 0.75rem 0;
+    font-size: 1.1rem;
 }
 
 .split-results strong {
-    color: #f1c40f;
+    color: #ffb347;
+    font-weight: 700;
 }
 
 /* Error Messages */
 .error-messages {
-    color: #e74c3c;
-    font-weight: bold;
-    padding: 0.5rem;
-    border-radius: 4px;
-    background-color: #fdeaea;
+    color: #b33c1f;
+    font-weight: 600;
+    padding: 0.75rem;
+    border-radius: 6px;
+    background-color: #fbe9e7;
+    border: 1px solid #b33c1f;
+    margin-top: 0.5rem;
 }
 
 /* Logic Explanation */
 .reflection {
-    background-color: #ecf0f1;
-    font-style: italic;
-    border-left: 4px solid #e74c3c;
+    background-color: #f1f5f9;
+    border-left: 6px solid #b33c1f;
+}
+
+.reflection h2 {
+    border-bottom-color: #b33c1f;
+}
+
+.reflection-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 }
 
 .reflection p {
-    line-height: 1.6;
+    line-height: 1.7;
+    color: #2c3e50;
+}
+
+.reflection code {
+    background-color: #e9ecef;
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+    color: #b33c1f;
 }
 
 .reflection strong {
-    color: #e74c3c;
+    color: #1a3e4c;
 }
 
-/* Tablet and Desktop Styles */
+/* Tablet Breakpoint - 768px and above */
 @media (min-width: 768px) {
     body {
         padding: 2rem;
@@ -198,27 +310,58 @@ input:invalid {
         font-size: 2.5rem;
     }
 
+    /* Two-column grid layout */
     main {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 1.5rem;
+        gap: 2rem;
+    }
+
+    /* Left column panels */
+    .panel:first-of-type {
+        grid-column: 1;
+    }
+
+    .panel:nth-of-type(2) {
+        grid-column: 2;
+    }
+
+    .panel:nth-of-type(3) {
+        grid-column: 1;
+    }
+
+    .panel:nth-of-type(4) {
+        grid-column: 2;
     }
 
     .reflection {
         grid-column: span 2;
     }
 
+    /* Adjust button width for larger screens */
     .btn {
         width: auto;
+        min-width: 200px;
     }
 
-    .form-group {
-        margin-bottom: 1rem;
+    /* Keep Add Loot form vertical - do not change to horizontal */
+    .add-loot-form {
+        display: flex;
+        flex-direction: column;
     }
 
-    /* Two-column layout for forms on larger screens */
-    #addLootBtn {
-        margin-top: 0.5rem;
+    /* Loot table adjustments */
+    .loot-table {
+        gap: 1rem;
+    }
+
+    .loot-header {
+        font-size: 1rem;
+    }
+
+    .loot-cell button {
+        width: 80px;
+        margin: 0 auto;
     }
 }
 
@@ -231,22 +374,48 @@ input:invalid {
     .panel {
         padding: 2rem;
     }
+
+    .loot-table {
+        grid-template-columns: 4fr 1fr 1fr 1fr;
+    }
 }
 
-/* Accessibility - Focus States */
-button:focus,
-input:focus {
-    outline: 3px solid #f39c12;
-    outline-offset: 2px;
-}
-
-/* High Contrast Mode Support */
+/* Accessibility - High Contrast Mode Support */
 @media (prefers-contrast: high) {
     .panel {
-        border: 2px solid black;
+        border: 3px solid black;
     }
     
     .btn {
-        border: 2px solid black;
+        border: 3px solid black;
+    }
+    
+    .btn:disabled {
+        border: 2px solid #666;
+    }
+    
+    input {
+        border: 3px solid black;
+    }
+    
+    .loot-header {
+        border-bottom: 3px solid black;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .btn, button {
+        display: none;
+    }
+    
+    body {
+        background: white;
+        color: black;
+    }
+    
+    .panel {
+        border: 1px solid black;
+        box-shadow: none;
     }
 }
