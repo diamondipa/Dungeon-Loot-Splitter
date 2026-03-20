@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Dungeon Loot Splitter - Split your party's loot evenly among members with automatic UI updates and persistent storage">
-    <meta name="author" content="Your Name">
-    <meta name="keywords" content="D&D, loot, party, splitter, dungeon, persistent, localStorage">
-    <title>Dungeon Loot Splitter - Phase 3</title>
+    <meta name="description" content="Dungeon Loot Splitter - Split your party's loot evenly among members with automatic UI updates, persistent storage, and server sync">
+    <meta name="author" content="Ian A">
+    <meta name="keywords" content="D&D, loot, party, splitter, dungeon, persistent, localStorage, server sync">
+    <title>Dungeon Loot Splitter - Phase 4</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -69,9 +69,7 @@
             <h2>Split Loot</h2>
             <button id="splitLootBtn" class="btn" disabled>Split Loot</button>
             
-            <!-- Reset All button - visually distinct, not a primary action -->
-            <!-- Using inline style to make it gray and differentiate from primary orange button -->
-            <button id="resetAllBtn" class="btn" style="background-color: #6c757d; margin-top: 1rem; border-color: #545b62;">Reset All</button>
+            <button id="resetAllBtn" class="btn btn-secondary" style="margin-top: 1rem;">Reset All</button>
             
             <div id="splitResults" class="split-results hidden">
                 <p><strong>Total Loot:</strong> $<span id="finalTotal">0.00</span></p>
@@ -80,21 +78,43 @@
             <div id="errorMessages" class="error-messages"></div>
         </section>
 
-        <!-- Bottom Row: Logic Explanation - Updated for Phase 3 -->
+        <!-- Phase 4: Server Sync Panel -->
+        <section class="panel sync-panel" aria-label="Server Synchronization">
+            <h2>Server Sync</h2>
+            <p class="sync-description">Persist your loot state to the external server or restore a previously saved session.</p>
+
+            <div class="sync-controls">
+                <div class="sync-action">
+                    <button id="syncToServerBtn" class="btn btn-sync" aria-label="Sync current loot state to server">
+                        &#8593; Sync to Server
+                    </button>
+                    <p class="sync-hint">Sends your current loot and party size to the server.</p>
+                </div>
+
+                <div class="sync-action">
+                    <button id="loadFromServerBtn" class="btn btn-load" aria-label="Load previously saved loot state from server">
+                        &#8595; Load from Server
+                    </button>
+                    <p class="sync-hint">Retrieves and restores your last saved server state.</p>
+                </div>
+            </div>
+
+            <div id="syncStatus" class="sync-status hidden" role="status" aria-live="polite"></div>
+        </section>
+
+        <!-- Bottom Row: Logic Explanation - Updated for Phase 4 -->
         <section class="panel reflection">
-            <h2>Logic Explanation - Phase 3</h2>
+            <h2>Logic Explanation - Phase 4</h2>
             <div class="reflection-content">
-                <p><strong>Persistent State:</strong> Your loot now survives page reloads! We save everything to localStorage using <code>JSON.stringify()</code> and load it back with <code>JSON.parse()</code>. The app auto-saves after every change.</p>
-                
-                <p><strong>State Lifecycle:</strong> The app follows a clear pattern: when you add/remove loot or change party size, we <strong>save to localStorage</strong> first, then <strong>update the UI</strong>. When the page loads, we <strong>restore from storage</strong> first, then <strong>update the UI</strong>. This keeps everything in sync.</p>
-                
-                <p><strong>Reset Functionality:</strong> The new "Reset All" button lets you start fresh - it clears the loot array, resets party size to 1, and wipes the saved data from localStorage. No page refresh needed!</p>
-                
-                <p><strong>Data Validation:</strong> When restoring saved data, we carefully check each loot item to make sure it's still valid. If something's corrupted (like negative values or missing names), we skip just that item instead of crashing. The valid items still load fine.</p>
-                
-                <p><strong>Single Source of Truth:</strong> Even with persistence, <code>lootArray</code> and <code>partySize</code> remain the only things that matter. localStorage is just a backup - the UI never reads directly from it. <code>updateUI()</code> still handles all rendering and calculations.</p>
-                
-                <p><strong>Debugging:</strong> During development, we set breakpoints in the restoration process to verify that data loads correctly before rendering. This helped confirm the lifecycle works as intended.</p>
+                <p><strong>External Synchronization:</strong> Phase 4 extends the application boundary beyond the browser. The <code>syncToServer()</code> function sends the full state object — <code>lootArray</code> and <code>partySize</code> — to the server as a JSON payload using a POST request. It does not mutate state or call <code>updateUI()</code>.</p>
+
+                <p><strong>Server Load Lifecycle:</strong> When loading from the server, the app follows a strict order: <strong>Fetch → Validate → Assign → Save (local) → updateUI()</strong>. Data is never blindly assigned. Each loot item is individually inspected before anything is written to <code>lootArray</code>.</p>
+
+                <p><strong>Validation Discipline:</strong> The <code>loadFromServer()</code> function validates every field of the returned state before any assignment. If any part of the response is malformed, the existing in-memory state is preserved. No partial writes are allowed.</p>
+
+                <p><strong>Architectural Integrity:</strong> External sync does not replace localStorage — it extends it. Local persistence keeps the app fast and offline-capable. The server is a storage boundary only. <code>lootArray</code> and <code>partySize</code> remain the single source of truth at all times.</p>
+
+                <p><strong>Separation of Concerns:</strong> Sync functions handle only communication. Mutation, persistence, and rendering remain separate responsibilities — exactly as in Phase 3. No architectural contracts were broken to add server support.</p>
             </div>
         </section>
     </main>
