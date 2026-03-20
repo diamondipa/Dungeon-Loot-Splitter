@@ -1,6 +1,7 @@
 /* 
- * Dungeon Loot Splitter - Phase 2
+ * Dungeon Loot Splitter - Phase 4
  * Mobile-first responsive design with ADA compliance
+ * Phase 4 additions: Server Sync panel styles
  */
 
 /* Base Styles - Mobile First */
@@ -21,7 +22,7 @@ body {
 
 /* Header */
 header {
-    background-color: #1a3e4c; /* Dark teal - meets contrast requirements */
+    background-color: #1a3e4c;
     color: white;
     padding: 1.5rem;
     border-radius: 8px;
@@ -58,7 +59,7 @@ main {
     color: #1a3e4c;
     margin-bottom: 1.25rem;
     font-size: 1.4rem;
-    border-bottom: 3px solid #b33c1f; /* Burnt orange accent */
+    border-bottom: 3px solid #b33c1f;
     padding-bottom: 0.5rem;
     font-weight: 600;
 }
@@ -113,10 +114,10 @@ input:invalid {
 
 /* Button Styling */
 .btn {
-    background-color: #b33c1f; /* Burnt orange - meets contrast with white text */
+    background-color: #b33c1f;
     color: white;
     padding: 0.8rem 1.5rem;
-    border: none;
+    border: 1px solid #8a2e17;
     border-radius: 6px;
     font-size: 1rem;
     cursor: pointer;
@@ -124,7 +125,6 @@ input:invalid {
     transition: background-color 0.2s;
     font-weight: 600;
     letter-spacing: 0.5px;
-    border: 1px solid #8a2e17;
 }
 
 .btn:hover {
@@ -143,7 +143,116 @@ input:invalid {
     opacity: 0.65;
 }
 
-/* Loot Table Styles - Grid layout as specified */
+/* Secondary button (Reset All) */
+.btn-secondary {
+    background-color: #6c757d;
+    border-color: #545b62;
+}
+
+.btn-secondary:hover {
+    background-color: #545b62;
+}
+
+.btn-secondary:focus {
+    box-shadow: 0 0 0 3px rgba(108, 117, 125, 0.4);
+}
+
+/* ========== PHASE 4: SYNC PANEL STYLES ========== */
+
+.sync-panel {
+    border-left: 5px solid #1a6e4c; /* green-teal accent to distinguish from other panels */
+}
+
+.sync-panel h2 {
+    border-bottom-color: #1a6e4c;
+    color: #1a3e4c;
+}
+
+.sync-description {
+    color: #555;
+    font-size: 0.95rem;
+    margin-bottom: 1.25rem;
+    line-height: 1.5;
+}
+
+.sync-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.sync-action {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.sync-hint {
+    font-size: 0.85rem;
+    color: #6c757d;
+    font-style: italic;
+}
+
+/* Sync to Server button */
+.btn-sync {
+    background-color: #1a6e4c;
+    border-color: #145438;
+}
+
+.btn-sync:hover {
+    background-color: #145438;
+}
+
+.btn-sync:focus {
+    box-shadow: 0 0 0 3px rgba(26, 110, 76, 0.4);
+}
+
+/* Load from Server button */
+.btn-load {
+    background-color: #1a3e4c;
+    border-color: #0f2a33;
+}
+
+.btn-load:hover {
+    background-color: #0f2a33;
+}
+
+.btn-load:focus {
+    box-shadow: 0 0 0 3px rgba(26, 62, 76, 0.4);
+}
+
+/* Sync Status Message */
+.sync-status {
+    margin-top: 1rem;
+    padding: 0.8rem 1rem;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    line-height: 1.4;
+}
+
+.sync-status.success {
+    background-color: #e6f4ee;
+    color: #145438;
+    border: 1px solid #1a6e4c;
+}
+
+.sync-status.error {
+    background-color: #fbe9e7;
+    color: #b33c1f;
+    border: 1px solid #b33c1f;
+}
+
+.sync-status.loading {
+    background-color: #e8f0f4;
+    color: #1a3e4c;
+    border: 1px solid #1a3e4c;
+    font-style: italic;
+}
+
+/* ========== END PHASE 4 STYLES ========== */
+
+/* Loot Table Styles */
 .loot-table {
     display: grid;
     grid-template-columns: 3fr 1fr 1fr 1fr;
@@ -183,13 +292,12 @@ input:invalid {
     padding: 0.4rem 0;
     background-color: #b33c1f;
     color: white;
-    border: none;
+    border: 1px solid #8a2e17;
     border-radius: 4px;
     cursor: pointer;
     font-size: 0.9rem;
     font-weight: 600;
     transition: background-color 0.2s;
-    border: 1px solid #8a2e17;
 }
 
 .loot-cell button:hover {
@@ -215,7 +323,7 @@ input:invalid {
 }
 
 .total-row span {
-    color: #ffb347; /* Light orange for contrast */
+    color: #ffb347;
 }
 
 /* Empty Message */
@@ -230,7 +338,7 @@ input:invalid {
     border: 1px dashed #adb5bd;
 }
 
-/* Hidden Class for State-Driven Visibility */
+/* Hidden Class */
 .hidden {
     display: none !important;
 }
@@ -264,6 +372,10 @@ input:invalid {
     background-color: #fbe9e7;
     border: 1px solid #b33c1f;
     margin-top: 0.5rem;
+}
+
+.error-messages:empty {
+    display: none;
 }
 
 /* Logic Explanation */
@@ -300,7 +412,7 @@ input:invalid {
     color: #1a3e4c;
 }
 
-/* Tablet Breakpoint - 768px and above */
+/* Tablet Breakpoint */
 @media (min-width: 768px) {
     body {
         padding: 2rem;
@@ -310,47 +422,52 @@ input:invalid {
         font-size: 2.5rem;
     }
 
-    /* Two-column grid layout */
     main {
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 2rem;
     }
 
-    /* Left column panels */
-    .panel:first-of-type {
-        grid-column: 1;
+    .panel:first-of-type { grid-column: 1; }
+    .panel:nth-of-type(2) { grid-column: 2; }
+    .panel:nth-of-type(3) { grid-column: 1; }
+    .panel:nth-of-type(4) { grid-column: 2; }
+
+    /* Phase 4: Sync panel spans full width */
+    .sync-panel {
+        grid-column: span 2;
     }
 
-    .panel:nth-of-type(2) {
-        grid-column: 2;
+    /* Sync controls side by side on tablet+ */
+    .sync-controls {
+        flex-direction: row;
+        gap: 2rem;
     }
 
-    .panel:nth-of-type(3) {
-        grid-column: 1;
-    }
-
-    .panel:nth-of-type(4) {
-        grid-column: 2;
+    .sync-action {
+        flex: 1;
     }
 
     .reflection {
         grid-column: span 2;
     }
 
-    /* Adjust button width for larger screens */
     .btn {
         width: auto;
         min-width: 200px;
     }
 
-    /* Keep Add Loot form vertical - do not change to horizontal */
+    .btn-sync,
+    .btn-load {
+        width: 100%;
+        min-width: unset;
+    }
+
     .add-loot-form {
         display: flex;
         flex-direction: column;
     }
 
-    /* Loot table adjustments */
     .loot-table {
         gap: 1rem;
     }
@@ -380,42 +497,20 @@ input:invalid {
     }
 }
 
-/* Accessibility - High Contrast Mode Support */
+/* Accessibility - High Contrast Mode */
 @media (prefers-contrast: high) {
-    .panel {
-        border: 3px solid black;
-    }
-    
-    .btn {
-        border: 3px solid black;
-    }
-    
-    .btn:disabled {
-        border: 2px solid #666;
-    }
-    
-    input {
-        border: 3px solid black;
-    }
-    
-    .loot-header {
-        border-bottom: 3px solid black;
-    }
+    .panel { border: 3px solid black; }
+    .btn { border: 3px solid black; }
+    .btn:disabled { border: 2px solid #666; }
+    input { border: 3px solid black; }
+    .loot-header { border-bottom: 3px solid black; }
+    .sync-status { border: 3px solid black; }
 }
 
 /* Print Styles */
 @media print {
-    .btn, button {
-        display: none;
-    }
-    
-    body {
-        background: white;
-        color: black;
-    }
-    
-    .panel {
-        border: 1px solid black;
-        box-shadow: none;
-    }
+    .btn, button { display: none; }
+    .sync-panel { display: none; }
+    body { background: white; color: black; }
+    .panel { border: 1px solid black; box-shadow: none; }
 }
